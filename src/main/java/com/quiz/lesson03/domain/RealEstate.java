@@ -1,0 +1,72 @@
+package com.quiz.lesson03.domain;
+
+import java.util.Date;
+
+public class RealEstate {
+
+	private int id;
+	private int realtorId;
+	private String address;
+	private String area;
+	private String type;
+	private int price;
+	private Integer rentPrice;
+	private Date creatAt;
+	private Date updateAt;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getRealtorId() {
+		return realtorId;
+	}
+	public void setRealtorId(int realtorId) {
+		this.realtorId = realtorId;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public Integer getRentPrice() {
+		return rentPrice;
+	}
+	public void setRentPrice(Integer rentPrice) {
+		this.rentPrice = rentPrice;
+	}
+	public Date getCreatAt() {
+		return creatAt;
+	}
+	public void setCreatAt(Date creatAt) {
+		this.creatAt = creatAt;
+	}
+	public Date getUpdateAt() {
+		return updateAt;
+	}
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
+	}
+	
+}
