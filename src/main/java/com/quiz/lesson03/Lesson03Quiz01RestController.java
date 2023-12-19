@@ -35,8 +35,8 @@ public class Lesson03Quiz01RestController {
 	//url:http://localhost/lesson03/quiz01/3?area=90&price=130000
 	@RequestMapping("/3")
 	public List<RealEstate> quiz01_3(
-			@RequestParam(value = "area") String area, 
-			@RequestParam(value = "price") int price) {
-		return realEstateBo.getRealEstatebyAreaPrice(area, price);
+			@RequestParam(value = "area") int area, 
+			@RequestParam("price") int price) {
+		return realEstateBo.getRealEstateListByAreaPrice(area, price);
 	}
 }

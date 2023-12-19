@@ -24,7 +24,25 @@ public class RealEstateBo {
 		return realEstateMapper.selectRealEstateListRentPrice(rentPrice);
 	}
 	
-	public List<RealEstate> getRealEstatebyAreaPrice(String area, int price) {
-		return realEstateMapper.selectRealEstateAreaPrice(area, price);
+	//input: area, price      output:List<RealEstate>
+	public List<RealEstate> getRealEstateListByAreaPrice(int area, int price) {
+		return realEstateMapper.selectRealEstateListByAreaPrice(area, price);
+	}
+	
+	//input: RealEstate      output: 행의 개수(int)
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateMapper.insertRealEstate(realEstate);
+	}
+	
+	
+    public int addRealEstateAsField(
+    		int realtorId, 
+    		String address, 
+    		int area, 
+    		String type, 
+    		int price, 
+    		Integer rentPrice) {
+    	
+		return realEstateMapper.insertRealEstateAsField(realtorId, address, area, type, price, rentPrice);
 	}
 }
