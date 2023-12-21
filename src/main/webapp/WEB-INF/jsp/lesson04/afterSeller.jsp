@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>결과</title>
 </head>
 <body>
-	<h1>입력완료</h1>
+	<h1>입력성공!</h1>
 </body>
 </html>

@@ -9,8 +9,8 @@
 			`nickname`
 			,`profileImageUrl`
 			,`temperature`
-			,`createdAt`
-			,`updatedAt`
+			,`creatAt`
+			,`updateAt`
  		)
  		VALUES
  		(
@@ -28,11 +28,25 @@
  			,`nickname`
 			,`profileImageUrl`
 			,`temperature`
-			,`createdAt`
-			,`updatedAt`
+			,`creatAt`
+			,`updateAt`
 		FROM	
  			`seller`
  		ORDER BY `id` DESC
  		LIMIT 1	
+ 	</select>
+ 	
+ 	<select id="selectSellerById" resultType="com.quiz.lesson04.domain.Seller">
+ 		SELECT
+ 			`id`
+ 			,`nickname`
+			,`profileImageUrl`
+			,`temperature`
+			,`creatAt`
+			,`updateAt`
+		FROM	
+ 			`seller`
+ 		WHERE
+ 			`id` = #{id}	
  	</select>
  </mapper>

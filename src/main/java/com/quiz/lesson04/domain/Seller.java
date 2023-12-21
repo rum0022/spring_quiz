@@ -7,9 +7,9 @@ public class Seller {
 	private int id;
 	private String nickname;
 	private String profileImageUrl;
-	private Double temperature;
-	private Date createdAt;
-	private Date updatedAt;
+	private double temperature;
+	private Date creatAt;
+	private Date updateAt;
 	
 	public int getId() {
 		return id;
@@ -29,23 +29,24 @@ public class Seller {
 	public void setProfileImageUrl(String profileImageUrl) {
 		this.profileImageUrl = profileImageUrl;
 	}
-	public Double getTemperature() {
+	
+	public double getTemperature() {
 		return temperature;
 	}
-	public void setTemperature(Double temperature) {
+	public void setTemperature(double temperature) {
 		this.temperature = temperature;
 	}
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getCreatAt() {
+		return creatAt;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setCreatAt(Date creatAt) {
+		this.creatAt = creatAt;
 	}
-	public Date getUpdatedAt() {
-		return updatedAt;
+	public Date getUpdateAt() {
+		return updateAt;
 	}
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
 	}
 	
 	

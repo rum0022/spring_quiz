@@ -18,29 +18,42 @@ public class Lesson04Quiz01Controller {
 	@Autowired
 	private SellerBo sellerBo;
 	
-	//url: http://localhost/lesson04/quiz01/add-seller-view
-	@RequestMapping("/add-seller-view")
+	//url: http://localhost:8080/lesson04/quiz01/add-seller-view
+	@GetMapping("/add-seller-view")
 	public String addSellerView() {
-		return "lesson04/addSeller";
+		return "lesson04/addSeller"; //jsp화면으로 출력
 	}
 
-	// 회원가입 insert
+	// 회원가입 insert => 입력성공
 	@PostMapping("/add-seller")
 	public String addSeller(
 			@RequestParam("nickname") String nickname,
 			@RequestParam(value = "profileImageUrl", required=false) String profileImageUrl,
-			@RequestParam(value = "temperature", required=false) Double temperature) {
+			@RequestParam("temperature") double temperature) {
 		
+		//db insert
 		sellerBo.getSeller(nickname, profileImageUrl, temperature);
 		
 		return "lesson04/afterSeller";
 	}
 	
-	//url: http://localhost/lesson04/quiz01/seller-info
-	@GetMapping("/seller-info")
-	public String sellerInfo(Model model) { //Model : view화면에 데이터를 넘겨주는 객체
+	// 최근 가입자 한명 화면 
+	//url: http://localhost:8080/lesson04/quiz01/seller-info-view
+	//url: http://localhost:8080/lesson04/quiz01/seller-info-view?id=...
+	@GetMapping("/seller-info-view")
+	public String sellerInfoView(
+			Model model,
+			@RequestParam(value = "id", required = false) Integer id) { //Model : view화면에 데이터를 넘겨주는 객체
+		
 		//DB select(최신가입자)
-		Seller seller = sellerBo.getSellerInfo();
+		Seller seller = null;
+		if (id == null) {
+			seller = sellerBo.getSellerInfo();  // id가 없을때
+		} else {//select(id)
+			//seller = sellerBo.getSellerById(id);
+			seller = sellerBo.getSellerById(id); // id가 있을때
+		}
+	
 		
 		//Model 주머니에 데이터를 담는다.=> jsp에서 꺼내쓴다.
 		model.addAttribute("result", seller);

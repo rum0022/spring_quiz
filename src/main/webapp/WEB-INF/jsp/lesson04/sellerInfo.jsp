@@ -12,9 +12,11 @@
 <body>
 	<div class="container">
 	<h3 class="font-weight-bold">${title}</h3>
-	<img src=${result.profileImageUrl} width="150px">
-	<h1 class="font-weight-light">${result.nickname}</h1>
-	<h4 class="text-warning">${result.temperature}</h4>
+	<div>
+	<img src=${result.profileImageUrl} alt="판매자이미지" width="150px">
+	</div>
+	<div class="display-3">${result.nickname}</div>
+	<div class="display-4 text-warning font-weight-bold">${result.temperature}</div>
 	</div>
 </body>
 </html>
