@@ -12,6 +12,7 @@ public class RealtorBo {
 	@Autowired
 	private RealtorMapper realtorMapper;
 	
+	//input: realtor      output: x
 	public void addRealtor(Realtor realtor) {
 		realtorMapper.insertRealtor(realtor);
 	}
