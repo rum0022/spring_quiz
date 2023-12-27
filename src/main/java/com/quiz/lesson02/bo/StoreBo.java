@@ -19,4 +19,8 @@ public class StoreBo {
 	public List<Store> getStoreList() { //스토어의 여러개의 행들을 가져오겠다. 
 		return storeMapper.selectStoreList();
 	}
+	
+	public Store getStoreById(int id) {
+		return storeMapper.selectStoreById(id);
+	}
 }

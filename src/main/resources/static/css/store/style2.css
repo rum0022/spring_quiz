@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+#wrap {width:900px; height:1000px;}
+
+header {height:120px; background-color:rgb(42, 193, 188);}
+
+.font {
+	font-size:60px;
+	font-weight: lighter;
+	}
+
+.contents {min-height:500px;}
+
+.content {
+	border:2px solid teal;
+	font-weight: bold
+	}

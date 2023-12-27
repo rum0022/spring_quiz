@@ -1,8 +1,23 @@
 @charset "UTF-8";
 
-#wrap {height:1500px;}
+#wrap {width:1200px}
 
-aside {height:900px;}
-.content1 {height:900px;}
+nav {background-color:cornflowerblue;}
+.contents {min-height:500px;}
 footer {height:100px;}
-.nav {}
+
+.menu-font {
+	color:white;
+	font-size:17px;
+	font-weight: bold;
+}
+
+.menu-font:hover {
+	color:white;
+	border: 2px solid white;
+}
+
+.input-label {
+	 width:130px;
+    text-align: right;
+    margin-right:10px;
