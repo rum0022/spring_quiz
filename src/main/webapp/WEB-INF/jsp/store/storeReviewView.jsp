@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,30 +13,59 @@
 <link rel="stylesheet" href="/css/store/style2.css" type="text/css">
 </head>
 <body>
-<div id="wrap" class="container">
-		<header class="d-flex align-items-center">
-			<h1 class="text-white font-weight-bold  ml-4">배탈의 민족</h1>
+	<div id="wrap">
+		<header class="bg-info d-flex align-items-center">
+			<h1 class="text-white font-weight-bold ml-4">배탈의 민족</h1>
 		</header>
-		
 		<section class="contents">
-			<c:forEach items="${reviews}" var="review">
-				<div class="font d-flex align-items-center">${review.menu} - 리뷰</div>
-					<div class="content mt-4">
-								<div class=" mt-3 ml-3 mb-3">
-									<h3>${review.userName}</h3>
-									<small>${review.createdAt}</small><br>
-									<span>${review.review}</span>
-								</div>			
-							</div>
-					</c:forEach>					
-		</section>
-		<hr>	
+		<c:forEach items="${storeList}" var="store">
+			<div class="display-4 my-3">${store.name} - 리뷰</div>
+		</c:forEach>	
+			
+			<%-- 리뷰영역 --%>
+			<c:if test="${empty reviewList}">
+				<div class="display-4 font-weight-bold">작성된 리뷰가 없습니다.</div>
+			</c:if>
+			<c:if test="${not empty reviewList}">
+				<c:forEach items="${reviewList}" var="review">
+				<div class="review mb-3">
+					<div class="border border-info p-3">
+						<span class="font-weight-bold">${review.userName}</span>
+						
+						<%-- 별 표시 --%>
+						<div class="star-area d-inline">
+							<c:set var="point" value="${review.point}" />
+							<c:forEach begin="1" end="5">
+								<c:choose>
+									<c:when test="${point > 0.5}">
+										<img src="/img/star_fill.png" width="20" alt="star">
+										<c:set var="point" value="${point - 1}" />
+									</c:when>
+									<c:when test="${point == 0.5}">
+										<img src="/img/star_half.png" width="20">
+										<c:set var="point" value="${point - 0.5}" />
+									</c:when>
+									<c:when test="${point == 0}">
+										<img src="/img/star_empty.png" width="20">
+									</c:when>
+								</c:choose>
+							</c:forEach>
+						</div>
+						
+						<small class="text-secondary d-block my-2">${review.createdAt}</small>
+						<div class="my-2">${review.review}</div>
+						<small class="menu-box rounded p-1">${review.menu}</small>
+					</div>
+				</div>
+				</c:forEach>
+			</c:if>
+			</section>
+		
 			
 		<footer>
-			<div>
-				<h3>(주)우와한형제</h3>
-				<h4>고객센터 : 1500-1500</h4>
-			</div>
+			<hr>
+			<h2>(주) 우와한형제</h2>
+			<h4 class="text-secondary">고객센터: 1500-1500</h4>
 		</footer>
 	</div>
 </body>

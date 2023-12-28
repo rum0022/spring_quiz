@@ -1,4 +1,4 @@
-package com.quiz.lesson02.domain;
+package com.quiz.store_list.domain;
 
 import java.util.Date;
 
@@ -12,6 +12,8 @@ public class Review {
 	private Character review;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -60,6 +62,4 @@ public class Review {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
 }

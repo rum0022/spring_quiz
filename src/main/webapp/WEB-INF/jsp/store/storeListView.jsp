@@ -14,33 +14,32 @@
 <link rel="stylesheet" href="/css/store/style2.css" type="text/css">
 </head>
 <body>
-	<div id="wrap" class="container">
-		<header class="d-flex align-items-center">
-			<h1 class="text-white font-weight-bold  ml-4">배탈의 민족</h1>
+	<div id="wrap">
+		<header class="bg-info d-flex align-items-center">
+			<h1 class="text-white font-weight-bold ml-4">배탈의 민족</h1>
 		</header>
 		
 		<section class="contents">
-			
-				<div class="font d-flex align-items-center">우리동네 가게</div>
-					<c:forEach items="${stores}" var="store">
-						<a href="http://localhost:8080/store/store-review?name=${store.name}">
-							<div class="content mt-4">
-								<div class=" mt-3 ml-3 mb-3">
-									<h3>${store.name}</h3>
-									<h5>전화번호 : ${store.phoneNumber}</h5>
-									<h5>주소 : ${store.address}</h5>
-								</div>			
+			<div class="display-4 my-3">우리동네 가게</div>
+			<%--가게영역 --%>
+					<c:forEach items="${storeList}" var="store">
+					<div class="content mt-4">
+						<a href="/store/store-review?storeId=${store.id}">
+							<div class="store-box border border-info rounded p-3">
+									<h3 class="font-seight-bold mb-3">${store.name}</h3>
+									<h4>전화번호 : ${store.phoneNumber}</h4>
+									<h4>주소 : ${store.address}</h4>
 							</div>	
-						</a>
-					</c:forEach>					
+						</a>			
+					</div>	
+				    </c:forEach>					
 		</section>
-		<hr>	
-			
+						
 		<footer>
-			<div>
-				<h3>(주)우와한형제</h3>
-				<h4>고객센터 : 1500-1500</h4>
-			</div>
+			<hr>
+			<h3>(주)우와한형제</h3>
+			<h4 >고객센터 : 1500-1500</h4>
+		
 		</footer>
 	</div>
 </body>

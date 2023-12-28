@@ -5,14 +5,6 @@
  <mapper namespace="com.quiz.lesson02.mapper.StoreMapper">
  
  	<select id="selectStoreList" resultType="com.quiz.lesson02.domain.Store">
- 	 	
- 	 	SELECT
- 	 		*
- 	 	FROM
- 	 		`store`;
- 	</select>
- 	
- 	<select id="selectStoreById" resultType="com.quiz.lesson02.domain.Store">
  		
  		SELECT
  			`id`
@@ -25,24 +17,7 @@
 			,`updatedAt`
 		FROM
 			`store`	
-		WHERE
-			`id` = #{id}	
  	</select>
  	
- 	<select id="selectReviewByStoreId" resultType="com.quiz.lesson02.domain.Review">
- 		SELECT
-	 		`storeId`
-			,`menu`
-			,`userName`
-			,`point`
-			,`review`
-			,`createdAt`
-			,`updatedAt`
-		FROM
-			`new_review`	
- 		ORDER BY
- 			`createdAt` DESC
- 			
- 	</select>
  </mapper>
  
