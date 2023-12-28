@@ -28,5 +28,21 @@
 		WHERE
 			`id` = #{id}	
  	</select>
+ 	
+ 	<select id="selectReviewByStoreId" resultType="com.quiz.lesson02.domain.Review">
+ 		SELECT
+	 		`storeId`
+			,`menu`
+			,`userName`
+			,`point`
+			,`review`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`new_review`	
+ 		ORDER BY
+ 			`createdAt` DESC
+ 			
+ 	</select>
  </mapper>
  

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quiz.lesson02.bo.StoreBo;
+import com.quiz.lesson02.domain.Review;
 import com.quiz.lesson02.domain.Store;
 
 @RequestMapping("/store")
@@ -19,7 +20,7 @@ public class StoreListController {
 	@Autowired
 	private StoreBo storeBo;
 	
-	@RequestMapping("/store-list-view")
+	@GetMapping("/store-list-view")
 	public String storeListView(Model model) {
 		
 		List<Store> stores = null;
@@ -29,15 +30,15 @@ public class StoreListController {
 		return "store/storeListView";
 	}
 	
-	@GetMapping("/store-review-view")
+	@GetMapping("/store-review")
 	public String storeReviewView(
-			@RequestParam("id") int id,
+			@RequestParam("storeId") int storeId,
 			Model model) {
 		
-		Store stores = null;
-		stores = storeBo.getStoreById(id);
+		Review reviews = storeBo.getReviewByStoreId(storeId);
 		
-		model.addAttribute("stores", stores);
+		
+		model.addAttribute("reviews", reviews);
 		return "store/storeReviewView";
 	}
 }

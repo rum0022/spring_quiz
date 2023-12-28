@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quiz.lesson02.domain.Review;
 import com.quiz.lesson02.domain.Store;
 import com.quiz.lesson02.mapper.StoreMapper;
 
@@ -20,7 +21,8 @@ public class StoreBo {
 		return storeMapper.selectStoreList();
 	}
 	
-	public Store getStoreById(int id) {
-		return storeMapper.selectStoreById(id);
+	public Review getReviewByStoreId(int storeid) {
+		return storeMapper.selectReviewByStoreId(storeid);
 	}
+	
 }

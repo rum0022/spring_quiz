@@ -4,6 +4,16 @@
 
 header {height:120px; background-color:rgb(42, 193, 188);}
 
+a {
+	text-decoration-line: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration-line: none;
+	color: black;
+}
+
 .font {
 	font-size:60px;
 	font-weight: lighter;
@@ -15,3 +25,5 @@ header {height:120px; background-color:rgb(42, 193, 188);}
 	border:2px solid teal;
 	font-weight: bold
 	}
+
+	

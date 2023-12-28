@@ -16,13 +16,13 @@ public class WeatherHistoryBo {
 	@Autowired
 	private WeatherHistoryMapper weatherHistoryMapper;
 	
-	// select
-	public List<WeatherHistory> getWeatherHistory() {
-		return weatherHistoryMapper.selectWeatherHistory();
+	// input: X              output: List<WeatherHistory>
+	public List<WeatherHistory> getWeatherHistoryList() {
+		return weatherHistoryMapper.selectWeatherHistoryList();
 	}
 	
 	// insert
-	public void addWeatherHistory(Date date, String weather, String microDust, 
+	public void addWeatherHistory(String date, String weather, String microDust, 
 		double temperatures, double precipitation, double windSpeed) {
 		
 		weatherHistoryMapper.insertWeatherHistory(date, weather, microDust, temperatures, precipitation, windSpeed);

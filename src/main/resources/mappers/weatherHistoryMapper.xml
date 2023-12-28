@@ -4,7 +4,7 @@
  
  <mapper namespace="com.quiz.weather_history.mapper.WeatherHistoryMapper">
  
-	<select id="selectWeatherHistory" resultType="com.quiz.weather_history.domain.WeatherHistory">
+	<select id="selectWeatherHistoryList" resultType="com.quiz.weather_history.domain.WeatherHistory">
 		SELECT
 			`id`
 			,`date`
@@ -29,6 +29,8 @@
 			,`precipitation`
 			,`microDust`
 			,`windSpeed`
+			,`createdAt`
+			,`updatedAt`
 		)
 		VALUES
 		(
@@ -38,6 +40,8 @@
 			,#{precipitation}
 			,#{microDust}
 			,#{windSpeed}
+			, NOW()
+			, NOW()
 		)
 	</insert>
  

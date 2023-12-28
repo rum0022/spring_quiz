@@ -20,18 +20,19 @@
 		</header>
 		
 		<section class="contents">
-			<div class="font d-flex align-items-center">우리동네 가게</div>
-			<form method="get" action="/store/store-review-view">
-				<c:forEach items="${stores}" var="store">
-					<div class="content mt-4">
-						<div class=" mt-3 ml-3 mb-3">
-							<button input="submit" class="btn"><h3>${store.name}</h3></button>
-							<h5>전화번호 : ${store.phoneNumber}</h5>
-							<h5>주소 : ${store.address}</h5>
-						</div>			
-					</div>
-				</c:forEach>
-			</form>
+			
+				<div class="font d-flex align-items-center">우리동네 가게</div>
+					<c:forEach items="${stores}" var="store">
+						<a href="http://localhost:8080/store/store-review?name=${store.name}">
+							<div class="content mt-4">
+								<div class=" mt-3 ml-3 mb-3">
+									<h3>${store.name}</h3>
+									<h5>전화번호 : ${store.phoneNumber}</h5>
+									<h5>주소 : ${store.address}</h5>
+								</div>			
+							</div>	
+						</a>
+					</c:forEach>					
 		</section>
 		<hr>	
 			
