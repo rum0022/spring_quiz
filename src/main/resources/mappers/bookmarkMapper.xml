@@ -7,8 +7,7 @@
 	<insert id="insertBookmark">
 		INSERT INTO `bookmark`
 		(
-			`id`
-			,`name`
+			`name`
 			,`url`
 			,`createdAt`
 			,`updatedAt`

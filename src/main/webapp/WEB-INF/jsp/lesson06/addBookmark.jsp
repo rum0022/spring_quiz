@@ -40,14 +40,16 @@
  				alert("주소를 입력하시오.")
  			}
  			
+ 	
  			console.log(name);
  			console.log(url);
  			
  			//AJAX
  			$.ajax({
- 				type:"post"
+ 				type:"POST"
  				, url:"/lesson06/quiz01/add-bookmark"
  				, data:{"name":name, "url":url}
+ 			
  				, success:function(data) {
  					alert(data);
  					if (data == "성공") {
