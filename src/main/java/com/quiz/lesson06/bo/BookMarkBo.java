@@ -18,7 +18,7 @@ public class BookMarkBo {
 		bookmarkMapper.insertBookmark(name, url);
 	}
 	
-	public List<Bookmark> getBookmark() {
-		return bookmarkMapper.selectBookmark();
+	public List<Bookmark> getBookmarkList() {
+		return bookmarkMapper.selectBookmarkList();
 	}
 }

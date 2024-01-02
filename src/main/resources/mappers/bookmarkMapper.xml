@@ -21,7 +21,7 @@
 		)
 	</insert>
 	
-	<select id="selectBookmark" resultType="com.quiz.lesson06.domain.Bookmark">
+	<select id="selectBookmarkList" resultType="com.quiz.lesson06.domain.Bookmark">
 		SELECT
 			`id`
 			,`name`

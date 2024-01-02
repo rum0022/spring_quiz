@@ -19,48 +19,59 @@
 				<input type="text" id="name" name="name" class="form-control">
 			<div class="form-group">
 				<label for="url" class="font-weight-bold  d-flex align-items-center mt-3">주소</label>
+				
+				
 				<input type="text" id="url" name="url" class="form-control">
+				<button type="button"></button>
 			</div>
-			<button type="button" id="joinBtn" class="btn btn-success form-control">추가</button>
+			<button type="button" id="addBtn" class="btn btn-success form-control">추가</button>
 	</div>
 	
 <script>
  	$(document).ready(function() {
- 		$("#joinBtn").on('click', function() {
+ 		//추가버튼 클릭
+ 		$('#addBtn').on('click', function() {
  			//alert("클릭");
- 			// validation 처리
- 			let name = $("#name").val();
+ 			// validation 체크
+ 			let name = $("#name").val().trim(); //앞뒤여백 트림함수로 제거
  			if (!name) {
  				alert("사이트명을 입력하시오.")
  				return;
  			}
  			
- 			let url = $("#url").val();
+ 			let url = $("#url").val().trim();
  			if (!url) {
  				alert("주소를 입력하시오.")
+ 				return;
  			}
  			
- 	
+ 			//http 또는 https 프로토콜까지 모두 입력 (둘다 아닐 때로 조건을 둬야함!)
+ 			if(url.startsWith("http:") == false
+ 					&& !url.startsWith("https:")) {
+ 				alert("주소 형식이 잘못 되었습니다.")
+ 				return;
+ 			}
+ 			
  			console.log(name);
  			console.log(url);
  			
- 			//AJAX
- 			$.ajax({
+ 			//AJAX 통신
+ 			$.ajax({ //키,벨류를 보내야하므로 딕셔너리{} 넣어준것
+ 				//request
  				type:"POST"
- 				, url:"/lesson06/quiz01/add-bookmark"
+ 				, url:"/lesson06/add-bookmark"
  				, data:{"name":name, "url":url}
- 			
- 				, success:function(data) {
- 					alert(data);
- 					if (data == "성공") {
- 						location.href = "/lesson06/quiz01/after-add-bookmark-view";
+ 				//response - call back 함수
+ 				, success:function(data) { // data : Json String => parsing(jquery ajax함수가 파싱해줌) => dictionary
+ 					//alert(data.code)
+ 					if (data.code == 200) { // or data.result == "성공"
+ 						//목록화면으로 이동
+ 						location.href = "/lesson06/after-add-bookmark-view"; //get방식으로 이동
  					}
  				}
  				
  				, error: function(request, status, error) { // 실패했을때
-					alert(request);
-					alert(status);
-					alert(error);
+					alert("추가하는데 실패했습니다. 관리자에게 문의해주세요.");
 				}
  			});
  		});
