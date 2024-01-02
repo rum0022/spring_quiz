@@ -20,15 +20,44 @@
 			<div class="form-group">
 				<label for="url" class="font-weight-bold  d-flex align-items-center mt-3">주소</label>
 				
-				
-				<input type="text" id="url" name="url" class="form-control">
-				<button type="button"></button>
+				<div class="d-flex">
+					<input type="text" id="url" name="url" class="form-control col-11">
+					<button type="button" id="urlCheckBtn" class="btn btn-info col-1 ml-2">중복확인</button>
+				</div>
+				<small id="urlStatusArea"></small>
 			</div>
 			<button type="button" id="addBtn" class="btn btn-success form-control">추가</button>
 	</div>
 	
 <script>
  	$(document).ready(function() {
+ 		//중복확인버튼 클릭
+ 		$('#urlCheckBtn').on('click', function() {
+ 			// 자식태그들을 모두 비운다.(나는 포함아님)
+ 			$('#urlStatusArea').empty();
+ 			//alert('중복확인');
+ 			let url = $("#url").val().trim();
+ 			
+ 			if (!url) {
+ 				${'#urlStatusArea'}.append('<span class="text-danger">주소가 비어있습니다</span>');
+ 				return;
+ 			}
+ 			
+ 			$.ajax({
+ 				type:"GET"
+ 				, url:"/lesson06/is-duplication-url"
+ 				, data:{"url":url}
+ 			
+ 				, success:function(data) {
+ 					if (data.is_duplication == true) {
+ 						$('urlStatusArea').append('<span class="text-danger">중복된 이름입니다.</span>');
+ 					}
+ 				}
+ 				, error:function(request, status, error) {
+ 					alert("주소 중복확인에 실패했습니다.")
+ 				}
+ 			});
+ 		});
  		//추가버튼 클릭
  		$('#addBtn').on('click', function() {
  			//alert("클릭");
@@ -39,11 +68,13 @@
  				return;
  			}
  			
- 			let url = $("#url").val().trim();
+ 			
+ 			
+ 			/*let url = $("#url").val().trim();
  			if (!url) {
  				alert("주소를 입력하시오.")
  				return;
- 			}
+ 			}*/
  			
  			//http 또는 https 프로토콜까지 모두 입력 (둘다 아닐 때로 조건을 둬야함!)
  			if(url.startsWith("http:") == false
@@ -54,6 +85,13 @@
  			
  			console.log(name);
  			console.log(url);
+ 			console.log($('urlStatusArea').children());
+ 			
+ 			if ($'#urlStatusArea').children().length < 1) {
+ 				alert("회원가입진행");
+ 			} else {
+ 				alert("회원가입불가");
+ 			}
  			
  			//AJAX 통신
  			$.ajax({ //키,벨류를 보내야하므로 딕셔너리{} 넣어준것
