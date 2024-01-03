@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+#wrap {width:1200px;}
+header {height:100px;}
+nav {height:35px; background-color:#ff8000;}
+section {min-height:500px;}
+.content {height: 70px;}
+footer {height:80px;}

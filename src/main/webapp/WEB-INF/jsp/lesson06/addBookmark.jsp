@@ -17,47 +17,61 @@
 			<div class="form-group">
 				<label for="name" class="font-weight-bold  d-flex align-items-center mt-3">제목</label>
 				<input type="text" id="name" name="name" class="form-control">
+				
 			<div class="form-group">
 				<label for="url" class="font-weight-bold  d-flex align-items-center mt-3">주소</label>
 				
-				<div class="d-flex">
+				<!-- 중복확인 버튼만들기 d-flex의 다른방식-->
+				<div class="form-inline">
 					<input type="text" id="url" name="url" class="form-control col-11">
-					<button type="button" id="urlCheckBtn" class="btn btn-info col-1 ml-2">중복확인</button>
+					<button type="button" id="duplicationBtn" class="btn btn-info">중복확인</button>
 				</div>
-				<small id="urlStatusArea"></small>
+				<!-- 처음에는 숨겨놓기 -->
+				<small id="duplicationText" class="text-danger d-none">중복된 url 입니다.</small>
+				<small id="availableText" class="text-success d-none">저장 가능한 url 입니다.</small>
 			</div>
+			
 			<button type="button" id="addBtn" class="btn btn-success form-control">추가</button>
 	</div>
 	
 <script>
  	$(document).ready(function() {
  		//중복확인버튼 클릭
- 		$('#urlCheckBtn').on('click', function() {
- 			// 자식태그들을 모두 비운다.(나는 포함아님)
- 			$('#urlStatusArea').empty();
+ 		$('#duplicationBtn').on('click', function() {
  			//alert('중복확인');
  			let url = $("#url").val().trim();
- 			
  			if (!url) {
- 				${'#urlStatusArea'}.append('<span class="text-danger">주소가 비어있습니다</span>');
+ 				alert("url을 입력하세요")
  				return;
  			}
  			
+ 			// AJAX 통신 -db중복확인
  			$.ajax({
- 				type:"GET"
+ 				//request (쿼리스트링으로 긴문자(주소가 들어올때는 post로 보내기)
+ 				type:"POST" 
  				, url:"/lesson06/is-duplication-url"
  				, data:{"url":url}
  			
- 				, success:function(data) {
+ 				//response
+ 				, success:function(data) { //data : Json string => Dictionary
+ 					// {"code":200, "is_duplication": true} => 중복
  					if (data.is_duplication == true) {
- 						$('urlStatusArea').append('<span class="text-danger">중복된 이름입니다.</span>');
+ 						//중복이다
+ 						$('#duplicationText').removeClass("d-none");
+ 						$('#availableText').addClass("d-none");
+ 					} else {
+ 						//중복아니다 =>사용가능
+ 						$('#duplicationText').addClass("d-none");
+ 						$('#availableText').removeClass("d-none");
  					}
  				}
  				, error:function(request, status, error) {
- 					alert("주소 중복확인에 실패했습니다.")
+ 					alert("중복확인에 실패했습니다.")
  				}
  			});
  		});
+ 		
+ 		
  		//추가버튼 클릭
  		$('#addBtn').on('click', function() {
  			//alert("클릭");
@@ -68,13 +82,11 @@
  				return;
  			}
  			
- 			
- 			
- 			/*let url = $("#url").val().trim();
+ 			let url = $("#url").val().trim();
  			if (!url) {
  				alert("주소를 입력하시오.")
  				return;
- 			}*/
+ 			}
  			
  			//http 또는 https 프로토콜까지 모두 입력 (둘다 아닐 때로 조건을 둬야함!)
  			if(url.startsWith("http:") == false
@@ -85,13 +97,6 @@
  			
  			console.log(name);
  			console.log(url);
- 			console.log($('urlStatusArea').children());
- 			
- 			if ($'#urlStatusArea').children().length < 1) {
- 				alert("회원가입진행");
- 			} else {
- 				alert("회원가입불가");
- 			}
  			
  			//AJAX 통신
  			$.ajax({ //키,벨류를 보내야하므로 딕셔너리{} 넣어준것

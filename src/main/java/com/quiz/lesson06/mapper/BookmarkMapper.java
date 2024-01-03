@@ -15,4 +15,10 @@ public interface BookmarkMapper {
 			@Param("url") String url);
 	
 	public List<Bookmark> selectBookmarkList();
+	
+	//input: url       output: List(여러행이 있을때)-정석은아님.->재료 그대로 돌려준다.
+	public List<Bookmark> selectBookmarkListByUrl(String url);
+	
+	
+	public int deleteBookmarkById(int id);
 }
