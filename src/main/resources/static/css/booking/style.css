@@ -1,8 +1,10 @@
 @charset "UTF-8";
 
-#wrap {width:1200px;}
 header {height:100px;}
-nav {height:35px; background-color:#ff8000;}
-section {min-height:500px;}
-.content {height: 70px;}
+nav {height:40px; background-color:#E3871F;}
+.contents{min-height:500px;}
 footer {height:80px;}
+
+.nav-item .nav-link:hover {background-color:#A76417;}
+
+.booking-box {width:350px;}
