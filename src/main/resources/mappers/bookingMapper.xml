@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
  <mapper namespace="com.quiz.lesson06.mapper.BookingMapper">
  
  <select id="selectBookingList" resultType="com.quiz.lesson06.domain.Booking">
@@ -19,15 +20,15 @@
 		`booking`	
  </select>
  
- <delete id="deleteBookingById">
+ <delete id="deleteBookingById" parameterType="int">
  	DELETE
  	FROM
- 		`booking`
+ 		`booking` <!-- 여기서 끝내면 다 지워짐 -->
  	WHERE
- 		`id` = #{id}
+ 		`id` = #{id} <!-- mybatis 문법임 -->
  </delete>
  
- <insert id="insertBooking">
+ <insert id="insertBooking" parameterType="map">
  	INSERT INTO `booking`
  	(
  		`name`
@@ -35,7 +36,7 @@
 		,`day`
 		,`date`
 		,`phoneNumber`
-		,`status`
+		,`state` <!-- null 이 아니므로 안넣으면 db에서 오류가 날것이다. -->
 		,`createdAt`
 		,`updatedAt`
  	)
@@ -46,7 +47,7 @@
  		,#{day}
  		,#{date}
  		,#{phoneNumber}
- 		,#{status}
+ 		,'대기중' <!-- 고정값일때만 여기에쓰고 아니면 비필수로 컨트롤러에서부터 들고다니기 -->
  		,NOW()
  		,NOW()
  	)

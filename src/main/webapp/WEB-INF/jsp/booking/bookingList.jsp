@@ -24,8 +24,8 @@
 			<ul class="nav nav-fill">
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">펜션소개</a></li>
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="/booking/booking-list-view" class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="/booking/make-booking-view" class="nav-link text-white font-weight-bold">예약목록</a></li>
+				<li class="nav-item"><a href="/booking/make-booking-view" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="/booking/booking-list-view" class="nav-link text-white font-weight-bold">예약목록</a></li>
 			</ul>
 		</nav>
 		<section class="contents py-4">
@@ -53,16 +53,16 @@
 			    		<td>
 				    		<c:choose>
 				    			<c:when test="${booking.state == '대기중'}">
-				    			<font color="blue">${booking.state}</font>
+				    				<span class="text-info">${booking.state}</span>
 				    			</c:when>
 				    			<c:when test="${booking.state == '확정'}">
-				    			<font color="green">${booking.state}</font>
+				    				<font color="green">${booking.state}</font>
 				    			</c:when>
 				    			<c:when test="${booking.state == '취소'}">
-				    			<font color="red">${booking.state}</font>
+				    				<font color="red">${booking.state}</font>
 				    			</c:when>
 				    		</c:choose>
-			    		</td>
+			    		</td> <%-- 이름이겹치면 안되므로 class로 이름짓기 --%>
 			    		<td><button type="button" class="deleteBtn btn btn-danger" data-booking-id="${booking.id}">삭제</button></td>
 			    	</tr>
 			    </c:forEach>	
@@ -80,25 +80,30 @@
 <script>
 	$(document).ready(function() {
 		//삭제버튼클릭
-		$('.deleteBtn').on('click', function(e) {
+		$(".deleteBtn").on('click', function(e) {
 			
 			let id = $(this).data('booking-id');
 			//alert(id);
 			
 			$.ajax({
-				type:"delete"
+				//request
+				type:"delete" //브라우저에서 get처럼 절대 요청못함
 				, url:"/booking/delete-booking"
 				, data:{"id":id}
 			
+				//response 
 				, success:function(data) {
-					if (data.code == 200) {
-						location.reload(true);
-					} else if (data.code == 500) {
+					// {"code":200, "result":"성공"}
+					if (data.result == "성공") {
+						alert("삭제되었습니다.");
+						location.reload(); //행은 삭제되고 화면은 그대로
+					} else {
+						// {"code":500, "error_message":"삭제하는데 실패했습니다."}
 						alert(data.error_message);
 					}
 				}
 				, error:function(request, status, error) {
-					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.")
+					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
 		});

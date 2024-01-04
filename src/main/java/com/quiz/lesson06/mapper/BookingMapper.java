@@ -20,7 +20,9 @@ public interface BookingMapper {
 			@Param("date") String date, 
 			@Param("day") int day, 
 			@Param("headcount") int headcount, 
-			@Param("phoneNumber") String phoneNumber,
-			@Param("status") String status);
+			@Param("phoneNumber") String phoneNumber);
 
+	public Booking selectBookingByNamePhoneNumber(
+			@Param("name") String name, 
+			@Param("phoneNumber") String phoneNumber);
 }

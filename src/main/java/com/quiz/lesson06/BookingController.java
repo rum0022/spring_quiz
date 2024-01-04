@@ -1,14 +1,13 @@
 package com.quiz.lesson06;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,20 +26,21 @@ public class BookingController {
 	
 	@GetMapping("/booking-list-view")
 	public String bookingListView(Model model) {
-		
+		//select DB
 		List<Booking> bookingList = bookingBo.getBookingList();
-		
+		//model에 담기
 		model.addAttribute("bookingList", bookingList);
 		
 		return "booking/bookingList";
 	}
 	
+	// 삭제 - AJAX요청
 	@ResponseBody
-	@Delete("/delete-booking")
+	@DeleteMapping("/delete-booking")
 	public Map<String, Object> deleteBooking(
 			@RequestParam("id") int id) {
 		
-		//db
+		// Delete db
 		int rowCount = bookingBo.deleteBookingById(id);
 		
 		Map<String, Object> result = new HashMap<>();
@@ -48,34 +48,51 @@ public class BookingController {
 			result.put("code", 200); //성공
 			result.put("result", "성공");	
 		} else {
-			result.put("code", 500); //성공
-			result.put("error_message", "삭제하는데 실패했습니다.");
+			result.put("code", 500); //실패
+			result.put("error_message", "삭제하는데 실패했습니다."); //서버에서 실패
 		}
 		return result;
 	}
-	
+	// 예약하기 화면
 	@GetMapping("/make-booking-view")
 	public String makeBookingView() {
 		return "booking/makeBooking";
 	}
 
+	// 예약하기 -AJAX 요청
 	@ResponseBody
-	@PostMapping("add-booking")
+	@PostMapping("/add-booking")
 	public Map<String, Object> addBooking(
 			@RequestParam("name") String name,
-			@RequestParam("date") String date,
+			@RequestParam("date") String date, //String으로 둬도됨
 			@RequestParam("day") int day,
 			@RequestParam("headcount") int headcount,
-			@RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam("status") String status) {
+			@RequestParam("phoneNumber") String phoneNumber) {
 		
 		//insert DB
-		bookingBo.addBooking(name, date, day, headcount, phoneNumber, status);
+		bookingBo.addBooking(name, date, day, headcount, phoneNumber);
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("result", "성공");		
 		//결과값
 		return result;
+	}
+	
+	@GetMapping("/check-booking-view")
+	public String checkBookingView() {
+		return "booking/checkBooking";
+	}
+	
+	@ResponseBody
+	@PostMapping("/select-booking")
+	public List<Booking> selectBooking(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber,
+			Model model) {
+		
+		Booking booking = bookingBo.getBookingByNamePhoneNumber(name, phoneNumber);
+		
+		return model;
 	}
 }

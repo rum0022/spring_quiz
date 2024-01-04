@@ -26,8 +26,8 @@
 			<ul class="nav nav-fill">
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">펜션소개</a></li>
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="/booking/booking-list-view" class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="/booking/make-booking-view" class="nav-link text-white font-weight-bold">예약목록</a></li>
+				<li class="nav-item"><a href="/booking/make-booking-view" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="/booking/booking-list-view" class="nav-link text-white font-weight-bold">예약목록</a></li>
 			</ul>
 		</nav>
 		<section class="contents py-4" >
@@ -44,7 +44,7 @@
 					<input type="text" id="day" class="form-control">
 					
 					<div class="subject-text my-2 font-weight-bold">숙박인원</div>
-					<input type="text" id="headcount" class="form-control">
+					<input type="number" id="headcount" class="form-control">
 					
 					<div class="subject-text my-2 font-weight-bold">전화번호</div>
 					<input type="text" id="phoneNumber" class="form-control">
@@ -63,9 +63,11 @@
 	
 <script>
 	$(document).ready(function() {
-		
-		$("#date").datepicker({
-			dateFormat: "yy-mm-dd"
+		//날짜선택
+		$('#date').datepicker({
+			//오늘 날짜 이후부터 조회
+			minDate:0
+			, dateFormat: "yy-mm-dd"
 		});
 		
 		$('#makeBookingBtn').on('click', function() {
@@ -76,15 +78,20 @@
 				return;
 			}
 			
-			let date = $('#date').val().trim();
+			let date = $('#date').val() //직접입력안하기때문에 trim제거해도됨
 			if (!date) {
-				alert("날짜를 입력하세요.");
+				alert("날짜를 선택해주세요.");
 				return;
 			}
 			
 			let day = $('#day').val().trim();
 			if (!day) {
 				alert("숙박일을 입력하세요.");
+				return;
+			}
+			
+			if (isNaN(day)) { //숫자가 아닐 때 참 or 위의 스크립트에서 타입을 number로 하면됨
+				alert("숙박일은 숫자만 가능합니다.");
 				return;
 			}
 			
@@ -100,21 +107,19 @@
 				return;
 			}
 			
-			let status = $('#status').val();
-			
 			$.ajax({
 				type:"POST"
 				, url:"/booking/add-booking"
-				, data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber, "status":status}
+				, data:{"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
 			
 				, success:function(data) {
-					
 					if (data.code == 200) {
+						alert("예약되었습니다.");
 						location.href = "/booking/booking-list-view";
-					}
+					} //else도 해주긴해야함
 				}
 				, error:function(request, status, error) {
-					alert("추가하는데 실패했습니다. 관리자에게 문의해주세요.");
+					alert("예약하는데 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
 		});
