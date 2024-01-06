@@ -52,4 +52,23 @@
  		,NOW()
  	)
  </insert>
+ 
+ <select id="selectBookingListByNamePhoneNumber"  parameterType="map" 
+ resultType="com.quiz.lesson06.domain.Booking"> 
+ 	SELECT
+		`id`
+		,`name`
+		,`headcount`
+		,`day`
+		,`date`
+		,`phoneNumber`
+		,`state`
+		,`createdAt`
+		,`updatedAt`
+	FROM
+		`booking`	
+	WHERE
+		`name` = #{name}
+		AND `phoneNumber` = #{phoneNumber}
+ </select>
  </mapper>

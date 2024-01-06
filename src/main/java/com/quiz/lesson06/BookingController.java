@@ -86,13 +86,26 @@ public class BookingController {
 	
 	@ResponseBody
 	@PostMapping("/select-booking")
-	public List<Booking> selectBooking(
+	public Map<String, Object> selectBooking(
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber,
 			Model model) {
 		
-		Booking booking = bookingBo.getBookingByNamePhoneNumber(name, phoneNumber);
+		// {"code":200, result:booking객체}
+		// {"code":200, "result":{"name":"신보람",...}
+		Map<String, Object> result = new HashMap<>();
 		
-		return model;
+		Booking booking = bookingBo.getBookingByNamePhoneNumber(name, phoneNumber);
+		if (booking == null) { // 아무것도 리턴될게 없다면
+			// {"code":500, "error_message":"예약내역이 존재하지 않습니다."}
+			result.put("code", 500);
+			result.put("error_message", "예약내역이 존재하지 않습니다.");
+		} else {
+			result.put("code", 200);
+			result.put("result", booking);
+		}
+		
+		return result;
 	}
+
 }

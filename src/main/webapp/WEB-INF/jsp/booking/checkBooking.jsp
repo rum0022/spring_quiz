@@ -88,7 +88,16 @@
 				, data:{"name":name, "phoneNumber":phoneNumber}
 				
 				, success:function(data) {
-					
+					// {"code":200, "result":{"name":"신보람",...}
+					if (data.code == 200) { //예약내역 있는경우
+						alert("이름:" + data.result.name 
+								+ "\n 날짜:" + data.result.date.slice(0, 10)
+								+ "\n 일수:" + data.result.day
+								+ "\n 인원:" + data.result.headcount
+								+ "\n 상태:" + data.result.state);
+					} else if (data.code == 500) {
+						alert(data.error_message);
+					} 
 				}	
 				, error:function(request, status, error) {
 					alert("조회하는데 실패했습니다. 관리자에게 문의해주세요.");
